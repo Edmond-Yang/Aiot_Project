@@ -1,0 +1,13 @@
+SQL QUERY instruction
+
+stmt = sql query (str)
+parameters -> :[parameter] in stmt, {[name]: [variable]} in parameters (dict | None)
+
+
+EXAMPLE
+
+insert_stmt = text(
+    'INSERT INTO test (text, secret) VALUES(:text, :secret)'
+)
+
+executeQuery(insert_stmt, {"text": "test-docker-2", "secret": "EDMOND"})
