@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, text
 from google.cloud.sql.connector import Connector, IPTypes
 import pymysql
 
-class CloudSqlConnecter:
+class CloudSqlConnector:
     
     def __init__(self):
         
@@ -59,7 +59,7 @@ class CloudSqlConnecter:
         return data_item
         
     
-    def executeQuery(self, stmt: str, parameters: dict | None) -> None:
+    def executeQuery(self, stmt: str, parameters: dict | None = None) -> None:
     
         with self.pool.connect() as db_conn:
             
@@ -72,5 +72,5 @@ class CloudSqlConnecter:
 
 if __name__ == '__main__':
     
-    cnx = CloudSqlConnecter()
+    cnx = CloudSqlConnector()
     print(cnx.fetchData('test'))
