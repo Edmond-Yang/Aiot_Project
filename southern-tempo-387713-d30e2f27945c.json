@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "southern-tempo-387713",
+  "private_key_id": "d30e2f27945c2bb088453679f161d26457477d71",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgO5N9BgHbv+Ti\nfCcN7Mb2UZp9Cui9MbFRYSDLV98F0OO8/ZWwdHmorxJiT2ZbXaQInCKyIBaToXd1\nOTVpdbj51jNGeIY5WN81Z1tMm8DAX92sAIgdpLca9CFTSyx+52Fu9hjj9Mq/Fu6c\nn0BeFl4ylYgKKsnUIVg+PWOAuo3EWnL3+Es9HW6ErFd21YpEXMMkp+m3s03C6Obr\nHwdWLS36YwWzFT7bDfuAcAoo7wMbuYYuO+WR50npeP3IGY1FRT4cTEPPIbnhDbVl\nERsxvailgSA0BJKhUfL61bIyNDeUkRsbwwvpne9wEkUjqcTMkzntHbIyYN1vrQBH\niT/17vKzAgMBAAECggEAJg3QGs6s7VAXH1Tl/5Aetowt2QmYuaoOFyounCxryplQ\nJOfCv6wB4rZlctSxlfxYwzS1psEpK3mbAcuK7FdpjWg6OD/SfNcm96tqyvhooCeE\nYV+k9AlU9UFKktoVILR59tzaj3TpG9Xp6GeH5XCBgZjyvJtp4Ifkya9RrNZhaeLC\noSAePvDqVyslj0aU8ti1vysqHgafaLqJAozNiTO6BCVDsS8KxSkXQa5NuPKHpS8s\nWJWRPp6i0op4l0DQapDva/YV8J7gPraZ1PvmxzpPqRsoVihGzk5V7v/IfCg9wFxa\nH97OjlDjwJRi/jycvfIDqqHDhUFns7bZxfZq2cKqyQKBgQDf3HkFTAne8QTmdEZ1\nNdQAgziJfISW4zNoilx0qacGnCLMBs2kEZBHYoq99yRIEgNIPUXix0wxIlxA/wGz\nT+jVVCv1QfpFLljvrSHbpomtWjbQyG/TSYylei7rwx5PrkeJAh/WNJ+Cv9nlaJWL\nl/J/5HhWchNn6878ph7NwGQ9+wKBgQC3PJPeKf/LWKXw4kDadov5aV/k2IJFCJ2C\nTryJBOBueT7Bgcy5iF5jeCSlwZkdWbdmqVdJC22aezfCQkgB51NH8hWJBP63lt73\n12dDPgulP9h+QhCyorqM3JteccVjQWoBeu9Y62Mh81liHRjlG4yTkYZTzGSRmPob\nZoerI8+YqQKBgQCSCuB8/y1VX4Gl4udwYgyLxQ+mSjCpy1FnexR0G5XWrxfYaPvR\ndI/esj/3THtD9VRk1Wx5VTG0wEjVMkfmtlQckEwZNdDTPzhQLG/xP0WEbV1jec/S\nVKJH9l0T+/gTXYxXqqYgdbY2c3jwu/kL17Yhj2ieZM+aNXGUy78+1avP7wKBgHwm\nezmn0zx/z88qPS7H64cNsn9ngrwrXi0QFAXyW+3+EFskCwYaM3nJyWrVhVyxkOXq\nDs3bBGQK4HiqWAeSKIcyqwyvabYSbvgV5k1VGKbaX2EMeivOvf766fpPs6HQjHZ8\nSPdCZWR3cTRc6qUwyUqi6xSUA//yWmN+UKXQGbQhAoGARfdnZDkptGb3zrCHYby1\nPhVYkE6d6GvNx0zLJ7cPBezqD7g9eHP6CMbl7BbN7DyguG/KhK9wziSs8X//uCBq\nC5Vt/j/Eh9PG7UMbP9Xmae4fn4c3t9vE1ODYEhtZCeihs4+CakouwZlMCgvzEuxb\nIrD+XU+v26ceuWgUtlfHOc0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "aiot-service@southern-tempo-387713.iam.gserviceaccount.com",
+  "client_id": "105540221385906755399",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/aiot-service%40southern-tempo-387713.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

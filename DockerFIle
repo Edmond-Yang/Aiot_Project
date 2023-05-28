@@ -1,0 +1,23 @@
+# use the official lightweight Python image
+FROM python:3.10-slim
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+
+RUN apt-get update && apt-get install -y curl
+
+# Allow statements and log messages to immediately appear in Knative logs
+ENV PYTHONUNBUFFERED True
+
+# Set the environment variable for service account key file path
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/southern-tempo-387713-d30e2f27945c.json"
+
+
+RUN curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.LATEST.linux.amd64
+
+RUN chmod +x cloud_sql_proxy
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ./cloud_sql_proxy -instances=<southern-tempo-387713:asia-east1:sql>=tcp:3306 -credential_file=$GOOGLE_APPLICATION_CREDENTIALS & python main.py

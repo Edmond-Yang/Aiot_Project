@@ -1,0 +1,7 @@
+fastapi
+python-dotenv
+SQLAlchemy
+cloud-sql-python-connector
+PyMySQL
+fastapi
+uvicorn
