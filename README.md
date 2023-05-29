@@ -11,23 +11,30 @@
 
 ## 檔案
 
-### 程式區
+### ./
 
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
 | main.py                                    | 執行 fastapi 後端程式                                         |
-| api.py                                     | 連接 Cloud SQL                                                |
-| requirements.txt                           | python 環境所需套件 (任何都不能烙下)                           |
 | DockerFile                                 | Container 環境所需執行的指令                                   |
-| southern-tempo-387713-d30e2f27945c.json    | Cloud SQL Proxy 所需密鑰                                       |
+| README.md                                  | 紀錄要務                                                       |
 
 
-### 非程式區
+### service/
 
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
+| sql.py                                     | 連接 Cloud SQL                                                |
 | example.txt                                | SQL 指令函式 例子                                              |
-| README.md                                  | 紀錄要務                                                       |
+
+
+### settings/
+
+| File Name                                  | Description                                                   |
+| ------------------------------------------ | --------------------------------------------------------------|
+| requirements.txt                           | python 環境所需套件 (任何需要透過 pip 下載的套件)               |
+| southern-tempo-387713-d30e2f27945c.json    | Cloud SQL Proxy 所需密鑰                                       |
+
 
 
 ## Message

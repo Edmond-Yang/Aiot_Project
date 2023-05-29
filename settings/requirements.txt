@@ -5,3 +5,5 @@ cloud-sql-python-connector
 PyMySQL
 fastapi
 uvicorn
+pydantic
+starlette
