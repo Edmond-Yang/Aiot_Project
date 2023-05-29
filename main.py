@@ -23,6 +23,17 @@ SqlApi = CloudSqlConnector()
 def main():
     return 'test ok'
 
+@app.get('/data_show')
+def data():
+    
+    sent = ''
+    result = SqlApi.fetchData('test')
+    
+    for i in result:
+        sent += '\t'.join(i) + '\n'
+     
+    return sent
+
 @app.post('/data')
 def data(item: Item):
     # TODO: get data ()
