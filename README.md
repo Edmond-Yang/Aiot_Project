@@ -35,6 +35,13 @@
 | requirements.txt                           | python 環境所需套件 (任何需要透過 pip 下載的套件)               |
 | southern-tempo-387713-d30e2f27945c.json    | Cloud SQL Proxy 所需密鑰                                       |
 
+### hardware/
+
+| File Name                                  | Description                                                   |
+| ------------------------------------------ | --------------------------------------------------------------|
+| ESP32_code.txt                             | ESP32的code                                                   |
+| wiring & note.txt                          | 接線與程式的說明                                               |
+
 
 
 ## Message
