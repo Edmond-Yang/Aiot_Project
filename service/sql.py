@@ -17,14 +17,18 @@ class CloudSqlConnector:
         
         # TODO: create a neccesary table
         create_table_stmt = text(
-            '''CREATE TABLE IF NOT EXISTS test(             
-                    text varchar(50),
-                    secret varchar(50)
+            '''CREATE TABLE IF NOT EXISTS plant_record(             
+                    temperature int,
+                    moisture int,
+                    soil_moisture int,
+                    water_weight int,
+                    time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );''',
         )
         
     
     def getConn(self) -> pymysql.connections.Connection:
+        
         conn: pymysql.connections.Connection = self.connector.connect(
             "southern-tempo-387713:asia-east1:sql",
             "pymysql",

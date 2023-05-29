@@ -22,4 +22,4 @@ RUN pip install --no-cache-dir -r ./settings/requirements.txt
 
 EXPOSE 8080
 
-CMD ./cloud_sql_proxy -instances=<southern-tempo-387713:asia-east1:sql>=tcp:3306 -credential_file=$GOOGLE_APPLICATION_CREDENTIALS & python main.py
+CMD ./cloud_sql_proxy -instances=southern-tempo-387713:asia-east1:sql=tcp:3306 -credential_file=$GOOGLE_APPLICATION_CREDENTIALS & python main.py
