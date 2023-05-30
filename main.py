@@ -1,13 +1,16 @@
 from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.responses import FileResponse
+from starlette.background import BackgroundTask
 import uvicorn
 from pydantic import BaseModel
 from service.sql import CloudSqlConnector
+import os
 
 class Item(BaseModel):
     soil_moisture :int
-    water_weight :int
+    gravity :int
 
 
 app = FastAPI(
@@ -26,16 +29,24 @@ def toDict(item: Item) -> dict:
 def main():
     return 'test ok'
 
-@app.get('/data_show')
-def data():
+@app.get('/dataCheck')
+def dataCheck():
     
     sent = ''
     result = SqlApi.fetchData('test')
     
     for i in result:
-        sent += '\t'.join(i) + '\n'
+        sent += ','.join(i) + '\n'
+        
+    with open('data.csv', 'w', encoding='big5') as file:
+        file.write('文字,秘密\n')
+        file.write(sent)
      
-    return sent
+    return FileResponse(
+            'data.csv',
+            filename='data.csv',
+            background=BackgroundTask(lambda: os.remove('data.csv')),
+        )
 
 @app.post('/data')
 def data(item: Item):
@@ -48,13 +59,12 @@ def data(item: Item):
     # TODO: webcrawl weather condition
     data.update({})
     
-    for key in data.keys(): 
-        
-        pass
+    SqlApi.executeQuery(stmt, data)
+    
 
 @app.exception_handler(StarletteHTTPException)
-async def custom_http_exception_handler():
-    return '404 NOT FOUND'
+async def custom_http_exception_handler(request, exc):
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0",port=8080)
