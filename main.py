@@ -1,16 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from starlette.responses import FileResponse
-from starlette.background import BackgroundTask
+from fastapi.responses import HTMLResponse
 import uvicorn
 from pydantic import BaseModel
 from service.sql import CloudSqlConnector
-import os
+from fastapi.templating import Jinja2Templates
+import markdown
 
 class Item(BaseModel):
+    temperature :int
+    moisture :int
     soil_moisture :int
-    gravity :int
 
 
 app = FastAPI(
@@ -19,45 +20,46 @@ app = FastAPI(
     version="0.1.0"
 )
 
+templates = Jinja2Templates(directory="templates")
+
 SqlApi = CloudSqlConnector()
 
 def toDict(item: Item) -> dict:
-    return {'soil_moisture': item.soil_moisture, 'gravity': item.gravity}
+    return {'temperature': item.temperature, 'moisture': item.moisture, 'soil_moisture': item.soil_moisture}
     
 
 @app.get('/')
 def main():
     return 'test ok'
 
-@app.get('/dataCheck')
-def dataCheck():
+@app.get('/dataCheck', response_class=HTMLResponse)
+def dataCheck(request: Request):
     
-    sent = ''
-    result = SqlApi.fetchData('test')
+    sent = '''| 溫度 | 濕度 | 土壤濕度 | 水重 | 時間 |\n| -- | -- | ---- | -- | -- |\n'''
     
+    result = SqlApi.fetchData('plants')
+
     for i in result:
-        sent += ','.join(i) + '\n'
         
-    with open('data.csv', 'w', encoding='big5') as file:
-        file.write('文字,秘密\n')
-        file.write(sent)
+        for j in range(len(i)) :
+            i[j] = str(i[j])
+            
+        sent += '| ' + ' | '.join(i) + ' |\n'
+        
      
-    return FileResponse(
-            'data.csv',
-            filename='data.csv',
-            background=BackgroundTask(lambda: os.remove('data.csv')),
-        )
+    return templates.TemplateResponse("index.html",{'request':request, 'data' : markdown.markdown(sent, extensions=['markdown.extensions.tables'])})
+
 
 @app.post('/data')
 def data(item: Item):
     
-    stmt = 'INSERT INTO plant_record (soil_moisture, soil_temperature, gravity, weather_temperature) VALUES(:soil_moisture, :soil_temperature, :gravity)'
+    stmt = 'INSERT INTO plants (temperature, moisture, soil_moisture, gravity) VALUES(:temperature, :moisture, :soil_moisture, :gravity)'
     
     # TODO: convert class to json
     data = toDict(item)
     
     # TODO: webcrawl weather condition
-    data.update({})
+    data.update({'gravity': 0})
     
     SqlApi.executeQuery(stmt, data)
     

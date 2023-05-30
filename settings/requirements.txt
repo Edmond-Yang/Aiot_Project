@@ -7,3 +7,5 @@ fastapi
 uvicorn
 pydantic
 starlette
+markdown
+Jinja2

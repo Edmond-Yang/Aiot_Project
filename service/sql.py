@@ -16,15 +16,15 @@ class CloudSqlConnector:
         )
         
         # TODO: create a neccesary table
-        create_table_stmt = text(
-            '''CREATE TABLE IF NOT EXISTS plant_record(             
+        create_table_stmt = '''CREATE TABLE IF NOT EXISTS plants(             
                     temperature int,
                     moisture int,
                     soil_moisture int,
-                    water_weight int,
-                    time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                );''',
-        )
+                    gravity int,
+                    record_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );'''
+        
+        self.executeQuery(create_table_stmt)
         
     
     def getConn(self) -> pymysql.connections.Connection:
@@ -39,7 +39,7 @@ class CloudSqlConnector:
         return conn
     
     
-    def fetchData(self, table_name) -> list:
+    def fetchData(self, table_name: str) -> list:
         
         data_item = []
         
