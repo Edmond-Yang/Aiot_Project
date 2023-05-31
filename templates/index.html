@@ -2,11 +2,13 @@
 <html>
     <head>
         <title>DataBase</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', path='/icon.PNG') }}">
     </head>
     <body>
         <style>
             .wrap{
                 overflow:hidden;
+                margin: 0px 100px;
                 border-radius:10px 10px 0px 0px;
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
               }
@@ -20,13 +22,13 @@
               th{
                 background-color:#009879;
                 color:#ffffff;
-                width:25vw;
+                width:20vw;
                 height:75px;
               }
               
               td{
                 background-color:#ffffff;
-                width:25vw;
+                width:20vw;
                 height:50px;
                 text-align:center;
               }
@@ -43,7 +45,7 @@
                 background-color:#f3f3f3;
               }
         </style>
-        <h1>Plants</h1>
+        <h1 style="text-align: center; margin-bottom: 30px;">Plants</h1>
         <div class="wrap">
             {{ data | safe }}
         </div>
