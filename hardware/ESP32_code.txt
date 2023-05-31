@@ -1,20 +1,35 @@
 #include <SimpleDHT.h>
+#include <WiFi.h>
+#include <HTTPClient.h>
 
-// for DHT11, 
-//      VCC: 5V or 3V
-//      GND: GND
-//      DATA: 2
 #define pumpPin 5
-#define dirtPin 12
+#define dirtPin 34
 #define dry 1500
 int pinDHT11 = 4;
 SimpleDHT11 dht11(pinDHT11);
+
+const char* ssid = "CHT WI-FI Auto";
+const char* password = "0963920068";
+const char* serverName = "https://aiot-server-shsjao25ha-de.a.run.app/data";
+unsigned long lastTime = 0;
+unsigned long timerDelay = 5000;
 
 void setup() {
   pinMode(pumpPin, OUTPUT);
   pinMode(dirtPin, OUTPUT);
   digitalWrite(pumpPin, LOW);
   Serial.begin(115200);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting");
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+  Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
 }
 
 void loop() {
