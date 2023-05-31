@@ -34,6 +34,10 @@ def toDict(item: Item) -> dict:
 def main():
     return 'test ok'
 
+@app.get('/getData')
+def getData():
+    return SqlApi.fetchData('plants')
+
 @app.get('/dataCheck', response_class=HTMLResponse)
 def dataCheck(request: Request):
     

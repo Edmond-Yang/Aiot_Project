@@ -14,7 +14,7 @@ ENV PYTHONUNBUFFERED True
 ENV GOOGLE_APPLICATION_CREDENTIALS="/app/settings/southern-tempo-387713-d30e2f27945c.json"
 
 
-RUN curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.LATEST.linux.amd64
+RUN curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.3.0/cloud-sql-proxy.linux.amd64
 
 RUN chmod +x cloud_sql_proxy
 
