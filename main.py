@@ -34,6 +34,10 @@ def toDict(item: Item) -> dict:
 def main():
     return 'test ok'
 
+@app.get('/execute/{stmt}')
+def exec(stmt: str):
+    SqlApi.executeQuery(stmt)
+
 @app.get('/getData')
 def getData():
     return SqlApi.fetchData('plants')
