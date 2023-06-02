@@ -68,7 +68,39 @@ def data(item: Item):
     data.update({'gravity': 0})
     
     SqlApi.executeQuery(stmt, data)
+
+
+@app.get('/getFormattedData')
+def getFormattedData():
     
+    formattedData = []
+    data = SqlApi.fetchData('plants')
+    
+    if len(data) > 7:
+        data = data[-7:]
+    
+    for row in data:
+        formattedData.append({'temperature': row[0], 'moisture': row[1], 'soil_moisture': row[2], 'gravity': row[3], 'time': row[4]})
+    
+    return formattedData
+
+@app.get('/getAppData')
+def getAppData():
+    
+    appData = {'temperature': [], 'moisture': [], 'soil_moisture': [], 'gravity': [], 'time': []}
+    data = SqlApi.fetchData('plants')
+    
+    if len(data) > 7:
+        data = data[-7:]
+    
+    for row in data:
+        appData['temperature'].append(row[0])
+        appData['moisture'].append(row[1])
+        appData['soil_moisture'].append(row[2])
+        appData['gravity'].append(row[3])
+        appData['time'].append(row[4])
+        
+    return appData
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):

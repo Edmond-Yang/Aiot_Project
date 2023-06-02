@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, text
-from google.cloud.sql.connector import Connector, IPTypes
+from google.cloud.sql.connector import Connector
 import pymysql
 
 class CloudSqlConnector:
