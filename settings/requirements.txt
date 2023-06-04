@@ -9,3 +9,4 @@ pydantic
 starlette
 markdown
 Jinja2
+beautifulsoup4
