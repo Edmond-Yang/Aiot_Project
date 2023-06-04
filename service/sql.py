@@ -26,6 +26,13 @@ class CloudSqlConnector:
         
         self.executeQuery(create_table_stmt)
         
+        create_table_stmt = '''CREATE TABLE IF NOT EXISTS records(
+                    record_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,             
+                    watering int
+                );'''
+        
+        self.executeQuery(create_table_stmt)
+        
     
     def getConn(self) -> pymysql.connections.Connection:
         
