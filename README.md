@@ -59,7 +59,7 @@
 ### LSTM/
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
-| main.py                                    | 預測天氣使用function: Predict_watering_amount()                |
+| LSTM.py                                    | 預測天氣使用function: Predict_watering_amount()                |
 | requirements.txt                           | 使用packages                                                  |
 
 ## Message
