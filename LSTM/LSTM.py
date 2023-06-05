@@ -7,7 +7,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Flatten
 from keras.layers import LSTM
-from getData import Data
+from LSTM.getData import Data
 import numpy as np
 
 def split_dataset(data):
