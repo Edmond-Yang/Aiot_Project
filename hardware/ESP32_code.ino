@@ -1,78 +1,29 @@
+#include <Arduino.h>
 #include <SimpleDHT.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include "HX711.h"
 
 #define pumpPin 5
 #define dirtPin 34
-#define dry 1500
 int pinDHT11 = 4;
+
+const int LOADCELL_DOUT_PIN = 32;
+const int LOADCELL_SCK_PIN = 33;
+const double factor = (-195000.0)/500.0;
+const int dry = 2500;
+
+HX711 scale;
+HTTPClient http;
 SimpleDHT11 dht11(pinDHT11);
 
 //const char* ssid = "CHT WI-FI Auto";
 const char* ssid = "MSI 9243";
 const char* password = "0963920068";
 const char* serverName = "https://aiot-server-shsjao25ha-de.a.run.app/data";
-unsigned long lastTime = 0;
-unsigned long timerDelay = 5000;
+const char* serverName_2 = "https://aiot-server-shsjao25ha-de.a.run.app/lstm";
 
-void setup() {
-  pinMode(pumpPin, OUTPUT);
-  pinMode(dirtPin, OUTPUT);
-  digitalWrite(pumpPin, LOW);
-  Serial.begin(115200);
-
-  WiFi.begin(ssid, password);
-  Serial.println("Connecting");
-  while(WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Connected to WiFi network with IP Address: ");
-  Serial.println(WiFi.localIP());
-  Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
-}
-
-void loop() {
-  // start working...
-  Serial.println("=================================");
-  Serial.println("Sample DHT11...");
-  
-  // read without samples.
-  byte temperature = 0;
-  byte humidity = 0;
-  int err = SimpleDHTErrSuccess;
-  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-    Serial.print("Read DHT11 failed, err=");
-    Serial.print(SimpleDHTErrCode(err));
-    Serial.println(SimpleDHTErrDuration(err));
-    delay(1000);
-    return;
-  }
-  
-  Serial.print("Temperature: ");
-  Serial.print((int)temperature);
-  Serial.print(" *C, humidity: "); 
-  Serial.print((int)humidity);
-  Serial.println("%");
-
-  Serial.println("Sample WH-080...");
-  int DirtSensorValue = analogRead(dirtPin);
-  Serial.print("Dirt humidity sensor value: ");
-  Serial.println((int)DirtSensorValue);
-  if(DirtSensorValue > dry){
-    Serial.println("Start pump...");
-    digitalWrite(pumpPin, HIGH);
-    delay(500);
-    digitalWrite(pumpPin, LOW);
-    Serial.println("Stop pump...");
-  }
-
-  if(WiFi.status() == WL_CONNECTED){
-    WiFiClient client;
-    HTTPClient http;
-
-    const char* root_ca = "-----BEGIN CERTIFICATE-----\n" \
+const char* root_ca = "-----BEGIN CERTIFICATE-----\n" \
     "MIIFVzCCAz+gAwIBAgINAgPlk28xsBNJiGuiFzANBgkqhkiG9w0BAQwFADBHMQsw\n" \
     "CQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEU\n" \
     "MBIGA1UEAxMLR1RTIFJvb3QgUjEwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAw\n" \
@@ -103,13 +54,108 @@ void loop() {
     "2tIMPNuzjsmhDYAPexZ3FL//2wmUspO8IFgV6dtxQ/PeEMMA3KgqlbbC1j+Qa3bb\n" \
     "bP6MvPJwNQzcmRk13NfIRmPVNnGuV/u3gm3c\n" \
     "-----END CERTIFICATE-----\n";
-  
-    // Your Domain name with URL path or IP address with path
-    http.begin(serverName, root_ca);
-    
-    // If you need Node-RED/server authentication, insert user and password below
-    //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
 
+void setup() {
+  pinMode(pumpPin, OUTPUT);
+  pinMode(dirtPin, OUTPUT);
+  digitalWrite(pumpPin, LOW);
+  Serial.begin(115200);
+  scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting");
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  Serial.println("Sample WH-080...");
+  int DirtSensorValue = analogRead(dirtPin);
+  Serial.print("Dirt humidity sensor value: ");
+  Serial.println((int)DirtSensorValue);
+
+  double leak = 0.0;
+
+  if(DirtSensorValue >= dry) {
+    if (scale.is_ready()) {
+      scale.set_scale(factor);
+      Serial.println("Tare... remove any other weights from the scale.");
+      delay(500);
+      scale.tare();
+      Serial.println("Tare done...");
+
+      // Your Domain name with URL path or IP address with path
+      if(WiFi.status() == WL_CONNECTED){
+        http.begin(serverName_2, root_ca);
+        http.addHeader("Content-Type", "application/json");
+        int code = http.POST("{\"Security\": 1104}");
+        Serial.print("Get watering value. HTTP Response code: ");
+        Serial.println(code);
+        // http.end();
+      } else {
+        Serial.println("WiFi Disconnected");
+
+        WiFi.begin(ssid, password);
+        Serial.println("Connecting");
+        while(WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          Serial.print(".");
+        }
+        Serial.println("");
+        Serial.print("Connected to WiFi network with IP Address: ");
+        Serial.println(WiFi.localIP());
+      }
+      
+      String res = http.getString();
+      const char* response = res.c_str();
+      http.end();
+
+      Serial.print("Watering - Pump for ");
+      Serial.print(atoi(response));
+      Serial.println(" ms...");
+
+      digitalWrite(pumpPin, HIGH);
+      delay(atoi(response));
+      digitalWrite(pumpPin, LOW);
+      Serial.println("Stop pump...");
+
+      Serial.println("Counting water leakage...");
+      delay(1000*60*5);
+      leak = scale.get_units(50);
+      Serial.print("Leak out water: ");
+      Serial.print(leak);
+      Serial.println(" g");
+    } else {
+      Serial.println("HX711 not found.");
+    }
+  } else {
+      Serial.println("No need to watering.");
+  }
+
+  Serial.println("Sample DHT11...");
+  byte temperature = 0;
+  byte humidity = 0;
+  int err = SimpleDHTErrSuccess;
+  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+    Serial.print("Read DHT11 failed, err=");
+    Serial.print(SimpleDHTErrCode(err));
+    Serial.println(SimpleDHTErrDuration(err));
+    delay(1000);
+    return;
+  }
+  
+  Serial.print("Temperature: ");
+  Serial.print((int)temperature);
+  Serial.print(" *C, humidity: "); 
+  Serial.print((int)humidity);
+  Serial.println("%");
+
+  if(WiFi.status() == WL_CONNECTED){
     char str[9];
     char total_str[100] = "{\"temperature\":";
     
@@ -123,18 +169,22 @@ void loop() {
 
     itoa(DirtSensorValue, str, 10);
     strcat(total_str, str);
+    strcat(total_str, ",\"gravity\":");
+
+    itoa(leak, str, 10);
+    strcat(total_str, str);
     strcat(total_str, "}");
 
-    Serial.println(total_str);
+    //Serial.println(total_str);
+    http.begin(serverName, root_ca);
     http.addHeader("Content-Type", "application/json");
     int httpResponseCode = http.POST(total_str);
-    Serial.print("HTTP Response code: ");
+    Serial.print("Upload data. HTTP Response code: ");
     Serial.println(httpResponseCode);
-      
+    
     // Free resources
     http.end();
-  }
-  else {
+  } else {
     Serial.println("WiFi Disconnected");
 
     WiFi.begin(ssid, password);
