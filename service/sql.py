@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, text
-from google.cloud.sql.connector import Connector, IPTypes
+from google.cloud.sql.connector import Connector
 import pymysql
 
 class CloudSqlConnector:
@@ -22,6 +22,13 @@ class CloudSqlConnector:
                     soil_moisture int,
                     gravity int,
                     record_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );'''
+        
+        self.executeQuery(create_table_stmt)
+        
+        create_table_stmt = '''CREATE TABLE IF NOT EXISTS records(
+                    record_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,             
+                    watering int
                 );'''
         
         self.executeQuery(create_table_stmt)
