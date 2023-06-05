@@ -10,3 +10,6 @@ starlette
 markdown
 Jinja2
 beautifulsoup4
+numpy
+scikit-learn
+keras

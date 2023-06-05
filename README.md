@@ -25,6 +25,7 @@
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
 | sql.py                                     | 連接 Cloud SQL                                                |
+| webCrawl.py                                | 爬蟲 天氣資訊                                                  |
 | example.txt                                | SQL 指令函式 例子                                              |
 
 
@@ -59,10 +60,10 @@
 ### LSTM/
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
-| main.py                                    | 預測天氣使用function: Predict_watering_amount()                |
+| main.py                                    | 預測天氣使用 function: Predict_watering_amount()               |
 | requirements.txt                           | 使用packages                                                  |
 
 ## Message
 
-> **楊世宇** 大家加油\
+> **楊世宇** 大家加油
 > **林庭毅** 大氣溫溼度跟土壤溼度都用int就好
