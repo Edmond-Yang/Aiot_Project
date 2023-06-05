@@ -3,13 +3,13 @@ from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.responses import HTMLResponse
 from service.webCrawl import weather_bug
+from LSTM import LSTM
 import uvicorn
 from pydantic import BaseModel
 from service.sql import CloudSqlConnector
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import markdown
-from LSTM import LSTM 
 
 class Item(BaseModel):
     temperature :int
@@ -44,18 +44,18 @@ def exec(stmt: str):
     SqlApi.executeQuery(stmt)
     return 'success'
 
+@app.get('/lstm')
+def lstm():
+    pass
+
 @app.get('/getData')
 def getData():
     return SqlApi.fetchData('plants')
 
-@app.get('/lstm')
-def LSTM():
-    return LSTM.Predict_watering_amount()
-
 @app.get('/DataCheck/plants', response_class=HTMLResponse)
 def dataCheck(request: Request):
     
-    sent = '''| 編號 | 溫度 | 濕度 | 土壤濕度 | 水重 | 時間 |\n| -- | -- | -- | ---- | -- | -- |\n'''
+    sent = '''| 編號 | 溫度 | 濕度 | 土壤濕度 | 溢出水重 | 時間 |\n| -- | -- | -- | ---- | -- | -- |\n'''
     
     result = SqlApi.fetchData('plants')
 
