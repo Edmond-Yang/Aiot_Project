@@ -57,7 +57,11 @@
 | icon.PNG                                   | 櫻花 Image 用於網頁的 Icon                                     |
 
 ### LSTM/
-    
+| File Name                                  | Description                                                   |
+| ------------------------------------------ | --------------------------------------------------------------|
+| main.py                                    | 預測天氣使用function: Predict_watering_amount()                |
+| requirements.txt                           | 使用packages                                                  |
+
 ## Message
 
 > **楊世宇** 大家加油\
