@@ -33,9 +33,9 @@
 
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
-| requirements.txt                           | python 環境所需套件 (任何需要透過 pip 下載的套件)               |
+| requirements.txt                           | python 環境所需套件 (任何需要透過 pip 下載的套件)                |
 | root_ca.txt                                | esp32 連接 api 時所需憑證                                      |
-| southern-tempo-387713-d30e2f27945c.json    | Cloud SQL Proxy 所需密鑰                                       |
+| southern-tempo-387713-75d923658592.json    | Cloud SQL Proxy 所需密鑰 (為安全守則，該檔案已下架)              |
 
 ### hardware/
 
