@@ -35,7 +35,7 @@
 | ------------------------------------------ | --------------------------------------------------------------|
 | requirements.txt                           | python 環境所需套件 (任何需要透過 pip 下載的套件)                |
 | root_ca.txt                                | esp32 連接 api 時所需憑證                                      |
-| southern-tempo-387713-75d923658592.json    | Cloud SQL Proxy 所需密鑰 (為安全守則，該檔案已下架)              |
+| southern-tempo-387713-75d923658592.json    | Cloud SQL Proxy 所需密鑰 **(為安全守則，該檔案已下架)**        |
 
 ### hardware/
 
@@ -67,3 +67,15 @@
 
 > **楊世宇** 大家加油\
 > **林庭毅** 大氣溫溼度跟土壤溼度都用int就好
+
+## 網頁API
+| Route                                                                                    | Description                           |
+| ---------------------------------------------------------------------------------------- | ------------------------------------- |
+| [/](https://aiot-server-shsjao25ha-de.a.run.app/)                                        | 運行成功檢視 "test ok"                |
+| [/lstm](https://aiot-server-shsjao25ha-de.a.run.app/lstm)                                | 得到 lstm 結果                        |
+| [/getFormattedData](https://aiot-server-shsjao25ha-de.a.run.app/getFormattedData)        | 得到 plants 資料庫所有資料            |
+| [/getAppData](https://aiot-server-shsjao25ha-de.a.run.app/getFormattedData)              | 得到 plants 資料庫最近十筆資料        |
+| [/DataCheck/weather](https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/weather)      | plants 資料庫所有資料視覺化           |
+| [/DataCheck/plants](https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/plants)        | weather 爬蟲 資料視覺化               |
+| [/DataCheck/watering](https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/watering)    | records 資料庫所有資料視覺化          |
+| [/execute/...](https://aiot-server-shsjao25ha-de.a.run.app/execute/...)                  | 可以執行 SQL query                   |
