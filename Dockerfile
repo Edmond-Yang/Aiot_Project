@@ -14,7 +14,7 @@ RUN curl -o ./cloud_sql_proxy https://storage.googleapis.com/cloud-sql-connector
 RUN while [ ! -f /app/cloud_sql_proxy ]; do sleep 1; done
 RUN chmod +x cloud_sql_proxy
 
-ENV GOOGLE_APPLICATION_CREDENTIALS="/app/settings/southern-tempo-387713-d30e2f27945c.json"
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/settings/southern-tempo-387713-75d923658592.json"
 RUN ./cloud_sql_proxy southern-tempo-387713:asia-east1:sql=tcp:3306 -credential_file=$GOOGLE_APPLICATION_CREDENTIALS &
 
 EXPOSE 8080

@@ -3,21 +3,23 @@ import random
 import requests
 from bs4 import BeautifulSoup
 
-# Send a GET request to the website
-url = "https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/plants"
-response = requests.get(url)
 
-# Parse the HTML content using BeautifulSoup
-soup = BeautifulSoup(response.content, 'html.parser')
-
-# Find the table on the page
-table = soup.find('tbody')
-
-# Extract data from the table
-data = []
 random.seed(100)
 def Data():
+    
+    # Send a GET request to the website
+    url = "https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/plants"
+    response = requests.get(url)
 
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # Find the table on the page
+    table = soup.find('tbody')
+
+    # Extract data from the table
+    data = []
+    
     for row in table.find_all('tr'):
         row_data = []
         for cell in row.find_all('td'):
@@ -70,4 +72,4 @@ def Data():
 
     return data
 
-
+# Data()

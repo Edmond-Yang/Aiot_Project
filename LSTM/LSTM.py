@@ -13,7 +13,7 @@ import numpy as np
 def split_dataset(data):
 
 	data=np.array(data)
-	train, test = data[0:84], data[-7:]
+	train, test = data[0:14], data[14:21]
 	train = array(split(train, len(train)/7))
 	test = array(split(test, len(test)/7))
 
@@ -118,9 +118,9 @@ def evaluate_model(train, test, n_input,predict_len):
 
 def Predict_watering_amount():
 	dataset = Data()
-	train, test = split_dataset(dataset)
+	train, test = split_dataset(dataset)	
 	n_input = 7
-	predict_len = 7
+	predict_len = 1
 	model = build_model(train, n_input, predict_len)
 	history = [x for x in train]
 	predictions = list()

@@ -16,6 +16,9 @@ class Item(BaseModel):
     moisture :int
     soil_moisture :int
     gravity: int
+    
+class Auth(BaseModel):
+    Security :int
 
 
 app = FastAPI(
@@ -44,9 +47,17 @@ def exec(stmt: str):
     SqlApi.executeQuery(stmt)
     return 'success'
 
-@app.get('/lstm')
-def lstm():
-    pass
+@app.post('/lstm')
+def lstm(auth: Auth):
+    if auth.Security != 1104:
+        return 404
+    
+    n = LSTM.Predict_watering_amount()
+    stmt = 'INSERT INTO records (watering) VALUES(:watering)'
+    SqlApi.executeQuery(stmt, {'watering': n})
+    print(int( n / 35 * 1000) + 1000)
+    
+    return int( n / 35 * 1000) + 1000
 
 @app.get('/getData')
 def getData():
