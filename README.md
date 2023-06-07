@@ -41,9 +41,8 @@
 
 | File Name                                  | Description                                                   |
 | ------------------------------------------ | --------------------------------------------------------------|
-| ESP32_code.txt                             | ESP32的code                                                   |
+| ESP32_code.ino                             | ESP32的code                                                   |
 | wiring & note.txt                          | 接線與程式的說明                                               |
-| 地獄繪圖.jpg                               | 接線圖片                                               |
 
 ### templates/
 
