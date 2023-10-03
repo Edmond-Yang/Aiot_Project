@@ -1,7 +1,7 @@
 # Aiot Project
 
 ## 硬體連接圖
-![image]()
+![image](hardware.png)
 
 ## 檔案
 
