@@ -1,13 +1,7 @@
 # Aiot Project
 
-
-## 分工事項
-
-* 庭毅： 硬體
-* 建維： 爬蟲
-* 世宇： API, 資料庫, APP
-* 峻豪： 機器學習
-
+## 硬體連接圖
+![image]()
 
 ## 檔案
 
@@ -62,10 +56,7 @@
 | main.py                                    | 預測天氣使用 function: Predict_watering_amount()               |
 | requirements.txt                           | 使用packages                                                  |
 
-## Message
 
-> **楊世宇** 大家加油\
-> **林庭毅** 大氣溫溼度跟土壤溼度都用int就好
 
 ## 網頁API
 | Route                                                                                    | Description                           |
