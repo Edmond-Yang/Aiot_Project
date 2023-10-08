@@ -64,7 +64,7 @@
 
 
 
-## 網頁API
+## 網頁API (已下架)
 | Route                                                                                    | Description                           |
 | ---------------------------------------------------------------------------------------- | ------------------------------------- |
 | [/](https://aiot-server-shsjao25ha-de.a.run.app/)                                        | 運行成功檢視 "test ok"                |
@@ -75,3 +75,9 @@
 | [/DataCheck/plants](https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/plants)        | weather 爬蟲 資料視覺化               |
 | [/DataCheck/watering](https://aiot-server-shsjao25ha-de.a.run.app/DataCheck/watering)    | records 資料庫所有資料視覺化          |
 | [/execute/...](https://aiot-server-shsjao25ha-de.a.run.app/execute/...)                  | 可以執行 SQL query                   |
+
+## 貢獻
+* [楊世宇](https://github.com/Edmond-Yang)
+* [楊峻豪](https://github.com/daaaaaaavid)
+* [林庭毅](https://github.com/TingYeeet)
+* [陳建維](https://github.com/TamakiSilSha)
